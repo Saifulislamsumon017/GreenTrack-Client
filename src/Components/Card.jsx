@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const Card = ({ plant }) => {
   console.log(plant);
 
-  const { PlantName, image, category, careLevel, wateringFrequency } = plant;
+  const { _id, PlantName, image, category, careLevel, wateringFrequency } =
+    plant;
   return (
     <div className="p-4 bg-white rounded-lg shadow-sm text-sm w-full">
       <img
@@ -29,12 +31,14 @@ const Card = ({ plant }) => {
           WateringFrequency: {wateringFrequency}
         </p>
       </div>
-      <button
-        type="button"
-        className=" mt-4 mb-3 ml-2 px-6 py-2 font-Rancho text-2xl text-green-900 border-2 border-green-900 rounded-full hover:translate-y-[-10px] transition-all duration-500 "
-      >
-        Learn More
-      </button>
+      <Link to={`/plants/${_id}`}>
+        <button
+          type="button"
+          className=" mt-4 mb-3 ml-2 px-6 py-2 font-Rancho text-2xl text-green-900 border-2 border-green-900 rounded-full hover:translate-y-[-10px] transition-all duration-500 "
+        >
+          Learn More
+        </button>
+      </Link>
     </div>
   );
 };

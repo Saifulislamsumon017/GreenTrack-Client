@@ -7,6 +7,7 @@ import MyPlants from '../Pages/MyPlants';
 import Login from '../Pages/Login';
 import Register from '../Pages/Register';
 import Loading from '../Components/Loading';
+import PlantDetails from '../Components/PlantDetails';
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
         Component: Home,
         hydrateFallbackElement: <Loading />,
         loader: () => fetch('http://localhost:3000/plants'),
+      },
+      {
+        path: '/plants/:id',
+        Component: PlantDetails,
       },
       {
         path: 'all-plants',
