@@ -1,6 +1,5 @@
 import React from 'react';
 import logoImg from '../Assests/GreenTrack Logo.webp';
-import { toast } from 'react-toastify';
 
 const AddPlant = () => {
   const handelAddPlant = e => {
@@ -37,26 +36,29 @@ const AddPlant = () => {
       <p className="text-center py-5">
         Fill out the form below to add a new plant to your collection
       </p>
-      <form onSubmit={handelAddPlant} class="flex flex-col items-center gap-4 ">
-        <div class="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
-          <div class="w-full">
-            <label class="text-black/70" for="name">
+      <form
+        onSubmit={handelAddPlant}
+        className="flex flex-col items-center gap-4 "
+      >
+        <div className="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
+          <div className="w-full">
+            <label className="text-black/70" for="name">
               Plant Name
             </label>
             <input
-              class="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
+              className="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
               type="text"
               name="PlantName"
               required
               placeholder=" Enter Plant Name"
             />
           </div>
-          <div class="w-full">
-            <label class="text-black/70" for="name">
+          <div className="w-full">
+            <label className="text-black/70" for="name">
               Image URL
             </label>
             <input
-              class="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
+              className="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
               type="text"
               name="image"
               placeholder="https://example.com/plant.jpg"
@@ -64,31 +66,31 @@ const AddPlant = () => {
             />
           </div>
         </div>
-        <div class="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
-          <div class="w-full">
-            <label class="text-black/70" for="name">
+        <div className="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
+          <div className="w-full">
+            <label className="text-black/70" for="name">
               Category
             </label>
             <select
               name="category"
               // value={formData.category}
               // onChange={handleChange}
-              class="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
+              className="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
             >
               <option value="succulent">Succulent</option>
               <option value="fern">Fern</option>
               <option value="flowering">Flowering</option>
             </select>
           </div>
-          <div class="w-full">
-            <label class="text-black/70" for="name">
+          <div className="w-full">
+            <label className="text-black/70" for="name">
               CareLevel
             </label>
             <select
               name="careLevel"
               // value={formData.careLevel}
               // onChange={handleChange}
-              class="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
+              className="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
             >
               <option value="easy">Easy</option>
               <option value="moderate">Moderate</option>
@@ -96,28 +98,28 @@ const AddPlant = () => {
             </select>
           </div>
         </div>
-        <div class="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
-          <div class="w-full">
-            <label class="text-black/70" for="name">
+        <div className="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
+          <div className="w-full">
+            <label className="text-black/70" for="name">
               Watering Frequency
             </label>
             <input
-              class="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
+              className="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
               type="text"
               name="wateringFrequency"
               placeholder="e.g., Every 7 days"
               required
             />
           </div>
-          <div class="w-full">
-            <label class="text-black/70" for="name">
+          <div className="w-full">
+            <label className="text-black/70" for="name">
               Health Status
             </label>
             <select
               name="HealthStatus"
               // value={formData.careLevel}
               // onChange={handleChange}
-              class="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
+              className="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
             >
               <option value="easy">Needs Attention</option>
               <option value="moderate">Struggling</option>
@@ -125,25 +127,25 @@ const AddPlant = () => {
             </select>
           </div>
         </div>
-        <div class="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
-          <div class="w-full">
-            <label class="text-black/70" for="name">
+        <div className="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
+          <div className="w-full">
+            <label className="text-black/70" for="name">
               Last Watered Date
             </label>
             <input
-              class="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
+              className="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
               name="lastWateredDate"
               type="date"
               required
               placeholder=""
             />
           </div>
-          <div class="w-full">
-            <label class="text-black/70" for="name">
+          <div className="w-full">
+            <label className="text-black/70" for="name">
               Next Watering Date
             </label>
             <input
-              class="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
+              className="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
               name="lastWateredDate"
               type="date"
               placeholder=""
@@ -152,19 +154,19 @@ const AddPlant = () => {
           </div>
         </div>
 
-        <div class="mt-6 w-[350px] md:w-[700px]">
-          <label class="text-black/70" for="name">
+        <div className="mt-6 w-[350px] md:w-[700px]">
+          <label className="text-black/70" for="name">
             Description
           </label>
           <textarea
             name="description"
-            class="w-full mt-2 p-2 h-40 border border-gray-500/30 rounded resize-none outline-none focus:border-indigo-300"
+            className="w-full mt-2 p-2 h-40 border border-gray-500/30 rounded resize-none outline-none focus:border-indigo-300"
             required
             placeholder="Description"
           ></textarea>
           <button
             type="submit"
-            class="mt-5 text-white h-12 w-full px-4 rounded  bg-green-600 py-2  hover:bg-green-700 active:scale-95 transition"
+            className="mt-5 text-white h-12 w-full px-4 rounded  bg-green-600 py-2  hover:bg-green-700 active:scale-95 transition"
           >
             Add Plant
           </button>

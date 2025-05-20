@@ -11,7 +11,6 @@ const RootLayout = () => {
       </header>
       <main className="min-h-[calc(100vh-150px)]">
         <Outlet />
-        <ToastContainer />
       </main>
       <footer>i am footer</footer>
     </>
