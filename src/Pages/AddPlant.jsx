@@ -1,7 +1,33 @@
 import React from 'react';
 import logoImg from '../Assests/GreenTrack Logo.webp';
+import { toast } from 'react-toastify';
 
 const AddPlant = () => {
+  const handelAddPlant = e => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const newAddPlant = Object.fromEntries(formData.entries());
+    console.log(newAddPlant);
+
+    // send plant data to db
+    fetch('http://localhost:3000/plants', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(newAddPlant),
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        if (data.insertedId) {
+          console.log(data);
+        }
+        form.reset();
+      });
+  };
+
   return (
     <div className="w-11/12 mx-auto mt-[50px]  mb-[100px] shadow p-20 rounded-3xl ">
       <div className="flex items-center justify-center">
@@ -11,7 +37,7 @@ const AddPlant = () => {
       <p className="text-center py-5">
         Fill out the form below to add a new plant to your collection
       </p>
-      <form class="flex flex-col items-center gap-4 ">
+      <form onSubmit={handelAddPlant} class="flex flex-col items-center gap-4 ">
         <div class="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
           <div class="w-full">
             <label class="text-black/70" for="name">
@@ -41,7 +67,7 @@ const AddPlant = () => {
         <div class="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
           <div class="w-full">
             <label class="text-black/70" for="name">
-              category
+              Category
             </label>
             <select
               name="category"
@@ -56,7 +82,7 @@ const AddPlant = () => {
           </div>
           <div class="w-full">
             <label class="text-black/70" for="name">
-              careLevel
+              CareLevel
             </label>
             <select
               name="careLevel"
@@ -120,7 +146,7 @@ const AddPlant = () => {
               class="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
               name="lastWateredDate"
               type="date"
-              placeholder="Pick A Day"
+              placeholder=""
               required
             />
           </div>
