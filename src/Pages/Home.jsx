@@ -1,8 +1,7 @@
 import React from 'react';
-import AddPlant from './AddPlant';
 
 const Home = () => {
-  return <div>home</div>;
+  return <div>hello</div>;
 };
 
 export default Home;

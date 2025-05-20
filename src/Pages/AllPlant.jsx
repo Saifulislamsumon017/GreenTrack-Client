@@ -1,7 +1,7 @@
 import React from 'react';
 
 const AllPlant = () => {
-  return <div>AllPlant</div>;
+  return <div></div>;
 };
 
 export default AllPlant;
