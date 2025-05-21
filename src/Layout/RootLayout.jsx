@@ -1,18 +1,19 @@
 import React from 'react';
 import { Outlet } from 'react-router';
 import Header from '../Components/Header';
-import { ToastContainer } from 'react-toastify';
 
 const RootLayout = () => {
   return (
     <>
       <header>
-        <Header></Header>
+        <Header />
       </header>
-      <main className="min-h-[calc(100vh-150px)]">
+      <main className="min-h-screen bg-white text-black dark:bg-green-950 dark:text-white transition-all">
         <Outlet />
       </main>
-      <footer>i am footer</footer>
+      <footer className="py-4 bg-white dark:bg-green-950 text-black dark:text-white">
+        i am footer
+      </footer>
     </>
   );
 };

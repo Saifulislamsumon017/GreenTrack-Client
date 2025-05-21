@@ -3,7 +3,7 @@ import Card from './Card';
 
 const AllCardsPlants = ({ allPlants }) => {
   return (
-    <div className="my-[50px]">
+    <div className="py-[50px]">
       <h1 className="text-center text-5xl font-Rancho">
         Track Every Plant with Ease
       </h1>

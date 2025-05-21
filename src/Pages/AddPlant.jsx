@@ -1,15 +1,14 @@
 import React from 'react';
-import logoImg from '../Assests/GreenTrack Logo.webp';
+import logoImg from '../Assests/GreenTrack Logo.png';
 
 const AddPlant = () => {
-  const handelAddPlant = e => {
+  const handleAddPlant = e => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
     const newAddPlant = Object.fromEntries(formData.entries());
     console.log(newAddPlant);
 
-    // send plant data to db
     fetch('http://localhost:3000/plants', {
       method: 'POST',
       headers: {
@@ -28,21 +27,23 @@ const AddPlant = () => {
   };
 
   return (
-    <div className="w-11/12 mx-auto mt-[50px]  mb-[100px] shadow p-20 rounded-3xl ">
+    <div className="w-11/12 mx-auto pt-[50px] pb-[100px] shadow p-20 rounded-3xl bg-white dark:shadow-green-950 dark:bg-green-950 dark:text-white transition">
       <div className="flex items-center justify-center">
-        <img src={logoImg} alt="" className="w-10 h-10" />
-        <h2 className="text-4xl font-Rancho">Add A New Plant</h2>
+        <img src={logoImg} alt="logo" className="w-10 h-10" />
+        <h2 className="text-4xl font-Rancho ml-3">Add A New Plant</h2>
       </div>
-      <p className="text-center py-5">
+      <p className="text-center py-5 text-black dark:text-white/70">
         Fill out the form below to add a new plant to your collection
       </p>
+
       <form
-        onSubmit={handelAddPlant}
-        className="flex flex-col items-center gap-4 "
+        onSubmit={handleAddPlant}
+        className="flex flex-col items-center gap-4"
       >
+        {/* Row 1 */}
         <div className="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
           <div className="w-full">
-            <label className="text-black/70" for="name">
+            <label className="text-black dark:text-white" htmlFor="PlantName">
               Plant Name
             </label>
             <input
@@ -50,11 +51,11 @@ const AddPlant = () => {
               type="text"
               name="PlantName"
               required
-              placeholder=" Enter Plant Name"
+              placeholder="Enter Plant Name"
             />
           </div>
           <div className="w-full">
-            <label className="text-black/70" for="name">
+            <label className="text-black dark:text-white" htmlFor="image">
               Image URL
             </label>
             <input
@@ -66,15 +67,15 @@ const AddPlant = () => {
             />
           </div>
         </div>
+
+        {/* Row 2 */}
         <div className="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
           <div className="w-full">
-            <label className="text-black/70" for="name">
+            <label className="text-black dark:text-white" htmlFor="category">
               Category
             </label>
             <select
               name="category"
-              // value={formData.category}
-              // onChange={handleChange}
               className="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
             >
               <option value="succulent">Succulent</option>
@@ -83,13 +84,11 @@ const AddPlant = () => {
             </select>
           </div>
           <div className="w-full">
-            <label className="text-black/70" for="name">
-              CareLevel
+            <label className="text-black dark:text-white" htmlFor="careLevel">
+              Care Level
             </label>
             <select
               name="careLevel"
-              // value={formData.careLevel}
-              // onChange={handleChange}
               className="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
             >
               <option value="easy">Easy</option>
@@ -98,9 +97,14 @@ const AddPlant = () => {
             </select>
           </div>
         </div>
+
+        {/* Row 3 */}
         <div className="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
           <div className="w-full">
-            <label className="text-black/70" for="name">
+            <label
+              className="text-black dark:text-white"
+              htmlFor="wateringFrequency"
+            >
               Watering Frequency
             </label>
             <input
@@ -112,24 +116,30 @@ const AddPlant = () => {
             />
           </div>
           <div className="w-full">
-            <label className="text-black/70" for="name">
+            <label
+              className="text-black dark:text-white"
+              htmlFor="HealthStatus"
+            >
               Health Status
             </label>
             <select
               name="HealthStatus"
-              // value={formData.careLevel}
-              // onChange={handleChange}
               className="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
             >
-              <option value="easy">Needs Attention</option>
-              <option value="moderate">Struggling</option>
-              <option value="difficult">Recovering</option>
+              <option value="Needs Attention">Needs Attention</option>
+              <option value="Struggling">Struggling</option>
+              <option value="Recovering">Recovering</option>
             </select>
           </div>
         </div>
+
+        {/* Row 4 */}
         <div className="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
           <div className="w-full">
-            <label className="text-black/70" for="name">
+            <label
+              className="text-black dark:text-white"
+              htmlFor="lastWateredDate"
+            >
               Last Watered Date
             </label>
             <input
@@ -137,25 +147,27 @@ const AddPlant = () => {
               name="lastWateredDate"
               type="date"
               required
-              placeholder=""
             />
           </div>
           <div className="w-full">
-            <label className="text-black/70" for="name">
+            <label
+              className="text-black dark:text-white"
+              htmlFor="nextWateredDate"
+            >
               Next Watering Date
             </label>
             <input
               className="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
-              name="lastWateredDate"
+              name="nextWateredDate"
               type="date"
-              placeholder=""
               required
             />
           </div>
         </div>
 
+        {/* Description */}
         <div className="mt-6 w-[350px] md:w-[700px]">
-          <label className="text-black/70" for="name">
+          <label className="text-black dark:text-white" htmlFor="description">
             Description
           </label>
           <textarea
@@ -166,7 +178,7 @@ const AddPlant = () => {
           ></textarea>
           <button
             type="submit"
-            className="mt-5 text-white h-12 w-full px-4 rounded  bg-green-600 py-2  hover:bg-green-700 active:scale-95 transition"
+            className="mt-5 text-white h-12 w-full px-4 rounded bg-green-600 py-2 hover:bg-green-700 active:scale-95 transition"
           >
             Add Plant
           </button>

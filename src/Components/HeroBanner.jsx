@@ -6,7 +6,7 @@ import SlideImg4 from '../Assests/Monitor Plant Health.webp';
 
 const HeroBanner = () => {
   return (
-    <div className="carousel w-full my-10">
+    <div className="carousel w-full py-10">
       <div id="slide1" className="carousel-item relative w-full rounded-2xl">
         {/* Background Image */}
         <img src={SlideImg1} className="w-full h-[550px] rounded-2xl" />

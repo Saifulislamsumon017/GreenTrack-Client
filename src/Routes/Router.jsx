@@ -8,11 +8,13 @@ import Login from '../Pages/Login';
 import Register from '../Pages/Register';
 import Loading from '../Components/Loading';
 import PlantDetails from '../Components/PlantDetails';
+import ErrorPage from '../Pages/ErrorPage';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     Component: RootLayout,
+    errorElement: <ErrorPage />,
 
     children: [
       {
