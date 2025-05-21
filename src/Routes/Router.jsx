@@ -29,6 +29,8 @@ export const router = createBrowserRouter([
       {
         path: 'all-plants',
         Component: AllPlant,
+        hydrateFallbackElement: <Loading />,
+        loader: () => fetch('http://localhost:3000/plants'),
       },
       {
         path: 'add-plant',
