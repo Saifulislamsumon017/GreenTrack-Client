@@ -9,6 +9,7 @@ import Register from '../Pages/Register';
 import Loading from '../Components/Loading';
 import PlantDetails from '../Components/PlantDetails';
 import ErrorPage from '../Pages/ErrorPage';
+import PrivetRoute from './PrivetRoute';
 
 export const router = createBrowserRouter([
   {
@@ -26,7 +27,12 @@ export const router = createBrowserRouter([
       },
       {
         path: '/plants/:id',
-        Component: PlantDetails,
+        // Component: PlantDetails,
+        element: (
+          <PrivetRoute>
+            <PlantDetails />
+          </PrivetRoute>
+        ),
       },
       {
         path: 'all-plants',

@@ -1,13 +1,41 @@
-import React from 'react';
+import React, { use, useEffect, useState } from 'react';
 import logoImg from '../Assests/GreenTrack Logo.png';
+import { AuthContext } from '../Context/AuthContext';
+import { toast } from 'react-toastify';
 
 const AddPlant = () => {
+  const { user } = use(AuthContext);
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+
+  useEffect(() => {
+    if (user?.email) {
+      setUserEmail(user.email);
+
+      fetch(`http://localhost:3000/users?email=${user.email}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.length > 0) {
+            setUserName(data[0].name);
+          } else {
+            setUserName('Unknown User');
+          }
+        })
+        .catch(err => {
+          console.error('Error fetching user:', err);
+          setUserName('Unknown User');
+        });
+    }
+  }, [user]);
+
   const handleAddPlant = e => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
+
     const newAddPlant = Object.fromEntries(formData.entries());
-    console.log(newAddPlant);
+    newAddPlant.userEmail = userEmail;
+    newAddPlant.userName = userName;
 
     fetch('http://localhost:3000/plants', {
       method: 'POST',
@@ -18,13 +46,27 @@ const AddPlant = () => {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         if (data.insertedId) {
-          console.log(data);
+          toast.success('Plant added successfully!');
+          form.reset();
+        } else {
+          toast.warning('Plant submission failed. Try again!');
         }
-        form.reset();
+      })
+      .catch(err => {
+        console.error(err);
+        toast.error('Error adding plant. Please try again later.');
       });
   };
+  if (!user) {
+    return (
+      <div className="p-10 text-center">
+        <h2 className="text-5xl font-Rancho capitalize">
+          You must be logged in to add a plant.
+        </h2>
+      </div>
+    );
+  }
 
   return (
     <div className="w-11/12 mx-auto pt-[50px] pb-[100px] shadow p-20 rounded-3xl bg-white dark:shadow-green-950 dark:bg-green-950 dark:text-white transition">
@@ -40,6 +82,37 @@ const AddPlant = () => {
         onSubmit={handleAddPlant}
         className="flex flex-col items-center gap-4"
       >
+        {/* Row 1 */}
+        <div className="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
+          <div className="w-full">
+            <label className="text-black dark:text-white" htmlFor="userName">
+              Your Name
+            </label>
+            <input
+              className="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
+              type="text"
+              name="userName"
+              value={userName}
+              readOnly
+              placeholder="Enter Your Name"
+              required
+            />
+          </div>
+          <div className="w-full">
+            <label className="text-black dark:text-white" htmlFor="image">
+              Your Email
+            </label>
+            <input
+              className="h-12 p-2 mt-2 w-full border border-gray-500/30 rounded outline-none focus:border-indigo-300"
+              type="email"
+              name="userEmail"
+              value={userEmail}
+              readOnly
+              placeholder="https://example.com/plant.jpg"
+              required
+            />
+          </div>
+        </div>
         {/* Row 1 */}
         <div className="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
           <div className="w-full">
@@ -172,17 +245,21 @@ const AddPlant = () => {
           </label>
           <textarea
             name="description"
-            className="w-full mt-2 p-2 h-40 border border-gray-500/30 rounded resize-none outline-none focus:border-indigo-300"
-            required
-            placeholder="Description"
-          ></textarea>
-          <button
-            type="submit"
-            className="mt-5 text-white h-12 w-full px-4 rounded bg-green-600 py-2 hover:bg-green-700 active:scale-95 transition"
-          >
-            Add Plant
-          </button>
+            placeholder="Write a description about the plant"
+            className="w-full p-3 mt-2 border border-gray-500/30 rounded outline-none focus:border-indigo-300"
+            rows="3"
+          />
         </div>
+
+        {/* Submit button */}
+        <button
+          type="submit"
+          className="btn w-[350px] md:w-[700px] font-Rancho text-2xl mt-4 bg-green-900 text-white border-none 
+          dark:bg-white dark:border dark:border-white 
+          dark:text-green-900 transition"
+        >
+          Add Plant
+        </button>
       </form>
     </div>
   );

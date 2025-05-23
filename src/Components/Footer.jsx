@@ -1,7 +1,7 @@
 import React from 'react';
 
-const AllPlant = () => {
+const Footer = () => {
   return <div></div>;
 };
 
-export default AllPlant;
+export default Footer;
