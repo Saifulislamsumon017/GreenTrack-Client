@@ -72,7 +72,7 @@ const AllPlant = () => {
                 <td className="px-6 py-4 capitalize">{plant.category}</td>
                 <td className="px-6 py-4">{plant.wateringFrequency}</td>
                 <td className="px-6 py-4">
-                  {format(getNextWateringDate(plant), 'yyyy-MM-dd')}
+                  {format(getNextWateringDate(plant), 'dd-MM-yyyy')}
                 </td>
                 <td className="px-6 py-4 text-right">
                   <Link to={`/plants/${plant._id}`}>
