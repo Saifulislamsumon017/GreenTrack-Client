@@ -6,7 +6,7 @@ const PlantDetails = () => {
   const [plant, setPlant] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/plants/${id}`)
+    fetch(`https://green-track-server.vercel.app/plant/${id}`)
       .then(res => res.json())
       .then(data => setPlant(data))
       .catch(err => console.error('Failed to fetch plant:', err));

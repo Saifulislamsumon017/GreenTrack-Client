@@ -27,7 +27,7 @@ const Login = () => {
           lastSignInTime: result.user?.metadata?.lastSignInTime,
         };
 
-        fetch('http://localhost:3000/users', {
+        fetch('https://green-track-server.vercel.app/users', {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(signInInfo),
@@ -62,7 +62,7 @@ const Login = () => {
           lastSignInTime: user.metadata?.lastSignInTime,
         };
 
-        return fetch('http://localhost:3000/users', {
+        return fetch('https://green-track-server.vercel.app/users', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

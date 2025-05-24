@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
 
         Component: Home,
         hydrateFallbackElement: <Loading />,
-        loader: () => fetch('http://localhost:3000/plants'),
+        loader: () => fetch('https://green-track-server.vercel.app/plants'),
       },
       {
         path: '/plants/:id',
@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
         path: 'all-plants',
         Component: AllPlant,
         hydrateFallbackElement: <Loading />,
-        loader: () => fetch('http://localhost:3000/plants'),
+        loader: () => fetch('https://green-track-server.vercel.app/plants'),
       },
       {
         path: 'add-plant',
@@ -55,17 +55,17 @@ export const router = createBrowserRouter([
         Component: UpdatePlant,
         hydrateFallbackElement: <Loading />,
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/plants/${params.id}`),
+          fetch(`https://green-track-server.vercel.app/plants/${params.id}`),
       },
 
       {
         path: 'my-plants',
-        Component: MyPlants,
-        // element: (
-        //   <PrivetRoute>
-        //     <MyPlants />
-        //   </PrivetRoute>
-        // ),
+        // Component: MyPlants,
+        element: (
+          <PrivetRoute>
+            <MyPlants />
+          </PrivetRoute>
+        ),
       },
       {
         path: 'Login',

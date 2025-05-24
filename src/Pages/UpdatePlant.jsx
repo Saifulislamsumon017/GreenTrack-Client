@@ -18,7 +18,7 @@ const UpdatePlant = () => {
     if (user?.email) {
       setUserEmail(user.email);
 
-      fetch(`http://localhost:3000/users?email=${user.email}`)
+      fetch(`https://green-track-server.vercel.app/users?email=${user.email}`)
         .then(res => res.json())
         .then(data => {
           if (data.length > 0) {
@@ -35,7 +35,7 @@ const UpdatePlant = () => {
   }, [user]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/plants/${id}`)
+    fetch(`https://green-track-server.vercel.app/plants/${id}`)
       .then(res => res.json())
       .then(data => setPlantData(data));
   }, [id]);
@@ -49,7 +49,7 @@ const UpdatePlant = () => {
     updatedPlant.userEmail = userEmail;
     updatedPlant.userName = userName;
 
-    fetch(`http://localhost:3000/plants/${id}`, {
+    fetch(`https://green-track-server.vercel.app/plants/${id}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json',

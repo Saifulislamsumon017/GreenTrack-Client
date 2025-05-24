@@ -33,9 +33,11 @@ const Register = () => {
         console.log(result);
         if (result.user) {
           // Update user profile with name and photo
-          await updateProfile(result.user, {
+          updateProfile({
             displayName: name,
             photoURL: restFormData.photo || null,
+          }).then(res => {
+            console.log(res);
           });
         }
 
@@ -48,7 +50,7 @@ const Register = () => {
           lastSignInTime: result.user?.metadata?.lastSignInTime,
         };
 
-        fetch('http://localhost:3000/users', {
+        fetch('https://green-track-server.vercel.app/users', {
           method: 'POST',
           headers: {
             'content-type': 'application/json',
@@ -87,7 +89,7 @@ const Register = () => {
           lastSignInTime: user.metadata?.lastSignInTime,
         };
 
-        return fetch('http://localhost:3000/users', {
+        return fetch('https://green-track-server.vercel.app/users', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

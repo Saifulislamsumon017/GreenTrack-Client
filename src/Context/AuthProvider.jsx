@@ -16,36 +16,10 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   // ✅ Create User with optional name and photoURL
-  const createUser = async (
-    email,
-    password,
-    name = 'New User',
-    photoURL = 'https://i.pravatar.cc/150?img=3'
-  ) => {
+  const createUser = async (email, password) => {
     setLoading(true);
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const createdUser = userCredential.user;
 
-      // ✅ Set default or provided profile data
-      await updateProfile(createdUser, {
-        displayName: name,
-        photoURL: photoURL,
-      });
-
-      // ✅ Refresh the user state
-      setUser({ ...auth.currentUser });
-      return userCredential;
-    } catch (error) {
-      console.error('Error creating user:', error);
-      throw error;
-    } finally {
-      setLoading(false);
-    }
+    return createUserWithEmailAndPassword(auth, email, password);
   };
 
   // ✅ Sign In User
@@ -70,11 +44,7 @@ const AuthProvider = ({ children }) => {
   // ✅ Update User Profile
   const updateUser = updatedData => {
     setLoading(true);
-    return updateProfile(auth.currentUser, updatedData)
-      .then(() => {
-        setUser({ ...auth.currentUser });
-      })
-      .finally(() => setLoading(false));
+    return updateProfile(auth.currentUser, updatedData);
   };
 
   // ✅ Detect Auth State Changes

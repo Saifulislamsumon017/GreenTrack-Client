@@ -5,12 +5,12 @@ import { Link } from 'react-router';
 import logoImg from '../Assests/GreenTrack Logo.png';
 
 const MyPlants = () => {
-  const { user } = use(AuthContext);
+  const { user, loading } = use(AuthContext);
   const [plants, setPlants] = useState([]);
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/plants?email=${user.email}`)
+      fetch(`https://green-track-server.vercel.app/plants/${user.email}`)
         .then(res => res.json())
         .then(data => setPlants(data))
         .catch(() => {
@@ -22,7 +22,7 @@ const MyPlants = () => {
           });
         });
     }
-  }, [user]);
+  }, [user, loading]);
 
   const handleDelete = id => {
     Swal.fire({
@@ -35,7 +35,7 @@ const MyPlants = () => {
       confirmButtonText: 'Yes, delete it!',
     }).then(result => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/plants/${id}`, {
+        fetch(`https://green-track-server.vercel.app/plants/${id}`, {
           method: 'DELETE',
         })
           .then(res => res.json())
