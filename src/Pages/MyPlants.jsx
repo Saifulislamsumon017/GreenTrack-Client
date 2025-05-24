@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { use } from 'react';
+import React, { use, useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 import { AuthContext } from '../Context/AuthContext';
-import { toast } from 'react-toastify';
+import { Link } from 'react-router';
+import logoImg from '../Assests/GreenTrack Logo.png';
 
 const MyPlants = () => {
   const { user } = use(AuthContext);
@@ -9,68 +10,99 @@ const MyPlants = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/plants/${user.email}`)
+      fetch(`http://localhost:3000/plants?email=${user.email}`)
         .then(res => res.json())
         .then(data => setPlants(data))
-        .catch(err => console.error('Failed to load plants:', err));
+        .catch(() => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Failed to load',
+            text: 'Could not fetch your plants. Try again later.',
+            confirmButtonColor: '#d33',
+          });
+        });
     }
   }, [user]);
 
   const handleDelete = id => {
-    const confirm = window.confirm(
-      'Are you sure you want to delete this plant?'
-    );
-    if (!confirm) return;
-
-    fetch(`http://localhost:3000/plants/${id}`, {
-      method: 'DELETE',
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.deletedCount > 0) {
-          toast.success('Plant deleted successfully!');
-          setPlants(plants.filter(p => p._id !== id));
-        } else {
-          toast.error('Failed to delete plant.');
-        }
-      });
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
+    }).then(result => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/plants/${id}`, {
+          method: 'DELETE',
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.deletedCount > 0) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Deleted!',
+                text: 'Your plant has been deleted.',
+                confirmButtonColor: '#3085d6',
+              });
+              setPlants(plants.filter(plant => plant._id !== id));
+            }
+          })
+          .catch(() => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Failed',
+              text: 'Delete failed. Please try again.',
+              confirmButtonColor: '#d33',
+            });
+          });
+      }
+    });
   };
 
+  if (!user?.email) {
+    return (
+      <p className="text-center pt-20">Please login to see your plants.</p>
+    );
+  }
+
   return (
-    <div className="w-11/12 mx-auto py-[50px]">
-      <h2 className="text-3xl font-Rancho mb-6 text-center">My Plants</h2>
+    <div className="py-[50px] max-w-7xl mx-auto">
+      <div className="flex items-center justify-center mb-5">
+        <img src={logoImg} alt="logo" className="w-10 h-10" />
+        <h2 className="text-4xl font-Rancho ml-2">My Plants</h2>
+      </div>
       {plants.length === 0 ? (
-        <p className="text-center">You haven't added any plants yet.</p>
+        <p className="text-center">No plants added yet.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
           {plants.map(plant => (
             <div
               key={plant._id}
-              className="p-4 border rounded-xl shadow bg-white dark:bg-green-950 dark:text-white"
+              className="p-4 bg-white dark:bg-green-950 dark:border border-white-1px rounded-lg shadow-sm text-sm w-full dark:text-white transition"
             >
               <img
                 src={plant.image}
                 alt={plant.PlantName}
-                className="h-48 w-full object-cover rounded"
+                className="w-full h-48 object-cover rounded-lg"
               />
-              <h3 className="text-xl mt-2 font-semibold">{plant.PlantName}</h3>
-              <p className="text-sm text-gray-600 dark:text-white/70">
-                {plant.category}
+              <h2 className="text-2xl font-bold mt-3">{plant.PlantName}</h2>
+              <p className="text-sm text-gray-500 dark:text-gray-300">
+                {plant.category} | {plant.careLevel}
               </p>
-              <p className="text-sm">Watering: {plant.wateringFrequency}</p>
-              <p className="text-sm">Health: {plant.HealthStatus}</p>
-              <p className="text-sm">Next Watering: {plant.nextWateredDate}</p>
-
-              <div className="mt-3 flex gap-2">
-                <button
-                  className="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600"
-                  onClick={() => alert('Implement update logic here')}
+              <p className="text-sm mt-2">{plant.description}</p>
+              <div className="flex justify-between mt-auto pt-4">
+                <Link
+                  to={`/updated-plant/${plant._id}`}
+                  className="btn bg-blue-600 text-white hover:bg-blue-700"
                 >
                   Update
-                </button>
+                </Link>
                 <button
-                  className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
                   onClick={() => handleDelete(plant._id)}
+                  className="btn bg-red-600 text-white hover:bg-red-700"
                 >
                   Delete
                 </button>

@@ -10,6 +10,7 @@ import Loading from '../Components/Loading';
 import PlantDetails from '../Components/PlantDetails';
 import ErrorPage from '../Pages/ErrorPage';
 import PrivetRoute from './PrivetRoute';
+import UpdatePlant from '../Pages/UpdatePlant';
 
 export const router = createBrowserRouter([
   {
@@ -42,11 +43,29 @@ export const router = createBrowserRouter([
       },
       {
         path: 'add-plant',
-        Component: AddPlant,
+        // Component: AddPlant,
+        element: (
+          <PrivetRoute>
+            <AddPlant />
+          </PrivetRoute>
+        ),
       },
+      {
+        path: 'updated-plant/:id',
+        Component: UpdatePlant,
+        hydrateFallbackElement: <Loading />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/plants/${params.id}`),
+      },
+
       {
         path: 'my-plants',
         Component: MyPlants,
+        // element: (
+        //   <PrivetRoute>
+        //     <MyPlants />
+        //   </PrivetRoute>
+        // ),
       },
       {
         path: 'Login',
