@@ -54,7 +54,6 @@ const Header = () => {
           </h1>
         </Link>
 
-        {/* Desktop Navigation */}
         <nav className="hidden lg:block">
           <ul className="flex space-x-5 text-xl font-Rancho">
             {menuItems.map(item => (
@@ -74,7 +73,6 @@ const Header = () => {
           </ul>
         </nav>
 
-        {/* Right Section */}
         <div className="flex items-center gap-3">
           {/* Dark Mode Toggle */}
           <button
@@ -85,7 +83,6 @@ const Header = () => {
             {isDarkMode ? <FaSun /> : <FaMoon />}
           </button>
 
-          {/* Auth Section */}
           {!user ? (
             <div className="hidden lg:flex gap-2">
               <Link
@@ -124,7 +121,6 @@ const Header = () => {
             </div>
           )}
 
-          {/* Mobile Menu Icon */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="lg:hidden text-2xl ml-2"
@@ -135,7 +131,6 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
       {menuOpen && (
         <div className="lg:hidden px-6 pb-4 space-y-3 text-lg font-Rancho transition-all">
           {menuItems.map(item => (

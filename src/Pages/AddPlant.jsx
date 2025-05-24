@@ -2,11 +2,13 @@ import React, { use, useEffect, useState } from 'react';
 import logoImg from '../Assests/GreenTrack Logo.png';
 import { AuthContext } from '../Context/AuthContext';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router';
 
 const AddPlant = () => {
   const { user } = use(AuthContext);
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user?.email) {
@@ -52,6 +54,8 @@ const AddPlant = () => {
             title: 'Success!',
             text: 'Plant added successfully!',
             confirmButtonColor: '#3085d6',
+          }).then(() => {
+            navigate('/');
           });
           form.reset();
         } else {
@@ -73,6 +77,7 @@ const AddPlant = () => {
         });
       });
   };
+
   if (!user) {
     return (
       <div className="p-10 text-center">
@@ -114,7 +119,7 @@ const AddPlant = () => {
             />
           </div>
           <div className="w-full">
-            <label className="text-black dark:text-white" htmlFor="image">
+            <label className="text-black dark:text-white" htmlFor="userEmail">
               Your Email
             </label>
             <input
@@ -123,12 +128,13 @@ const AddPlant = () => {
               name="userEmail"
               value={userEmail}
               readOnly
-              placeholder="https://example.com/plant.jpg"
+              placeholder="Your Email"
               required
             />
           </div>
         </div>
-        {/* Row 1 */}
+
+        {/* Row 2 */}
         <div className="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
           <div className="w-full">
             <label className="text-black dark:text-white" htmlFor="PlantName">
@@ -156,7 +162,7 @@ const AddPlant = () => {
           </div>
         </div>
 
-        {/* Row 2 */}
+        {/* Row 3 */}
         <div className="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
           <div className="w-full">
             <label className="text-black dark:text-white" htmlFor="category">
@@ -186,7 +192,7 @@ const AddPlant = () => {
           </div>
         </div>
 
-        {/* Row 3 */}
+        {/* Row 4 */}
         <div className="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
           <div className="w-full">
             <label
@@ -221,7 +227,7 @@ const AddPlant = () => {
           </div>
         </div>
 
-        {/* Row 4 */}
+        {/* Row 5 */}
         <div className="flex flex-col md:flex-row items-center gap-8 w-[350px] md:w-[700px]">
           <div className="w-full">
             <label

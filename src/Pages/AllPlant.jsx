@@ -12,12 +12,14 @@ const AllPlant = () => {
     return match ? parseInt(match[1], 10) : 0;
   };
 
+  // Calculate next watering date
   const getNextWateringDate = plant => {
     const lastDate = parseISO(plant.lastWateredDate);
     const days = getWateringInterval(plant.wateringFrequency);
     return addDays(lastDate, days);
   };
 
+  // Sorting logic
   useEffect(() => {
     let sorted = [...allPlants];
     if (sortOption === 'nextWatering') {
@@ -30,17 +32,17 @@ const AllPlant = () => {
   }, [sortOption, allPlants]);
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <h1 className="text-center font-Rancho text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-green-900 dark:text-white">
+    <div className="w-11/12 mx-auto py-[100px]">
+      <h1 className="text-center font-Rancho text-2xl md:text-4xl lg:text-5xl xl:text-6xl">
         All the Plants You Love in One Spot
       </h1>
 
       {/* Sort Dropdown */}
-      <div className="py-5 flex justify-end">
+      <div className="py-5 text-right">
         <select
           value={sortOption}
           onChange={e => setSortOption(e.target.value)}
-          className="p-2 border border-green-300 rounded-md bg-green-100 text-green-900 dark:bg-green-800 dark:border-green-600 dark:text-white"
+          className="p-2 border border-green-300 rounded-md"
         >
           <option value="">Sort by</option>
           <option value="nextWatering">Next Watering Date</option>
@@ -48,37 +50,33 @@ const AllPlant = () => {
         </select>
       </div>
 
-      {/* Table Wrapper with Horizontal Scroll on Small Screens */}
-      <div className="overflow-x-auto">
-        <table className="min-w-full text-left text-gray-700 dark:text-gray-200">
-          <thead className="bg-green-100 dark:bg-green-900 text-green-900 dark:text-green-200 uppercase text-base sm:text-lg font-Rancho">
+      {/* Table */}
+      <div className="py-5">
+        <table className="w-full text-left text-gray-700 dark:text-gray-200 ">
+          <thead className="bg-green-100 dark:bg-green-900 text-green-900 dark:text-green-200 uppercase text-xl font-Rancho rounded-2xl">
             <tr>
-              <th className="px-4 py-3 sm:px-6">🌱 Plant Name</th>
-              <th className="px-4 py-3 sm:px-6">📂 Category</th>
-              <th className="px-4 py-3 sm:px-6">💧 Watering</th>
-              <th className="px-4 py-3 sm:px-6">🗓 Next Watering</th>
-              <th className="px-4 py-3 sm:px-6 text-right">🔍 Actions</th>
+              <th className="px-6 py-4">🌱 Plant Name</th>
+              <th className="px-6 py-4">📂 Category</th>
+              <th className="px-6 py-4">💧 Watering</th>
+              <th className="px-6 py-4">🗓 Next Watering</th>
+              <th className="px-6 py-4 text-right">🔍 Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-green-100 dark:divide-green-800 text-sm sm:text-base">
+          <tbody className="divide-y text-xl divide-green-100 dark:divide-green-800">
             {sortedPlants.map(plant => (
               <tr
                 key={plant._id}
                 className="hover:bg-green-50 dark:hover:bg-green-800 transition"
               >
-                <td className="px-4 py-3 sm:px-6 font-semibold">
-                  {plant.PlantName}
-                </td>
-                <td className="px-4 py-3 sm:px-6 capitalize">
-                  {plant.category}
-                </td>
-                <td className="px-4 py-3 sm:px-6">{plant.wateringFrequency}</td>
-                <td className="px-4 py-3 sm:px-6">
+                <td className="px-6 py-4 font-semibold">{plant.PlantName}</td>
+                <td className="px-6 py-4 capitalize">{plant.category}</td>
+                <td className="px-6 py-4">{plant.wateringFrequency}</td>
+                <td className="px-6 py-4">
                   {format(getNextWateringDate(plant), 'yyyy-MM-dd')}
                 </td>
-                <td className="px-4 py-3 sm:px-6 text-right">
+                <td className="px-6 py-4 text-right">
                   <Link to={`/plants/${plant._id}`}>
-                    <button className="px-4 py-2 bg-green-700 text-white text-sm rounded-full hover:bg-green-800 dark:bg-white dark:text-green-800 dark:hover:bg-gray-100 transition">
+                    <button className="px-4 py-1 bg-green-700 text-white text-sm rounded-full hover:bg-green-800 dark:bg-white dark:text-green-800 dark:hover:bg-gray-100 transition">
                       View Details
                     </button>
                   </Link>

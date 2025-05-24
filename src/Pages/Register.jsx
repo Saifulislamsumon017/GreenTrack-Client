@@ -1,23 +1,88 @@
-import React from 'react';
+import React, { use } from 'react';
 import { AuthContext } from '../Context/AuthContext';
 import { FcGoogle } from 'react-icons/fc';
 import { toast } from 'react-toastify';
 import { Link, useLocation, useNavigate } from 'react-router';
-import { updateProfile } from 'firebase/auth'; // <-- Import updateProfile
 
 const Register = () => {
-  const { createUser, googleSignIn } = React.useContext(AuthContext);
+  const { createUser, googleSignIn, setUser, updateUser } = use(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
+  // const handleSignUp = e => {
+
+  //   e.preventDefault();
+  //   const form = e.target;
+  //   const formData = new FormData(form);
+
+  //   const { email, password, name, ...restFormData } = Object.fromEntries(
+  //     formData.entries()
+  //   );
+
+  //   // Password validation
+  //   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+  //   if (!passwordRegex.test(password)) {
+  //     toast.error(
+  //       'Password must be at least 6 characters and include uppercase and lowercase letters.'
+  //     );
+  //     return;
+  //   }
+
+  //   createUser(email, password)
+  //     .then(async result => {
+  //       console.log(result);
+  //       if (result.user) {
+  //         updateUser({ displayName: name, photoURL: photoURL })
+  //           .then(() => {
+  //             setUser({ ...user, displayName: name, photoURL: photoURL });
+  //           })
+  //           .catch(error => {
+  //             console.log(error);
+  //             setUser(user);
+  //           });
+  //       }
+
+  //       const userProfile = {
+  //         email,
+  //         name,
+  //         photo: restFormData.photo || null,
+  //         ...restFormData,
+  //         creationTime: result.user?.metadata?.creationTime,
+  //         lastSignInTime: result.user?.metadata?.lastSignInTime,
+  //       };
+
+  //       fetch('https://green-track-server.vercel.app/users', {
+  //         method: 'POST',
+  //         headers: {
+  //           'content-type': 'application/json',
+  //         },
+  //         body: JSON.stringify(userProfile),
+  //       })
+  //         .then(res => res.json())
+  //         .then(data => {
+  //           if (data.insertedId) {
+  //             toast.success('Registration successful!');
+  //             form.reset();
+  //             navigate(location.state ? location.state : '/'); // Redirect to home
+  //           } else {
+  //             toast.warning('User saved but no ID returned.');
+  //           }
+  //         })
+  //         .catch(() => {
+  //           toast.error('Failed to save user data.');
+  //         });
+  //     })
+  //     .catch(error => {
+  //       toast.error(`Registration failed: ${error.message}`);
+  //     });
+  // };
   const handleSignUp = e => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
 
-    const { email, password, name, ...restFormData } = Object.fromEntries(
-      formData.entries()
-    );
+    const formValues = Object.fromEntries(formData.entries());
+    const { email, password, name, photo, ...restFormData } = formValues;
 
     // Password validation
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
@@ -29,22 +94,33 @@ const Register = () => {
     }
 
     createUser(email, password)
-      .then(async result => {
+      .then(result => {
         console.log(result);
         if (result.user) {
-          // Update user profile with name and photo
-          updateProfile({
+          const updatedProfile = {
             displayName: name,
-            photoURL: restFormData.photo || null,
-          }).then(res => {
-            console.log(res);
-          });
+
+            photoURL: photo,
+          };
+
+          updateUser(updatedProfile)
+            .then(() => {
+              setUser({
+                ...result.user,
+                displayName: name,
+                photoURL: photo,
+              });
+            })
+            .catch(error => {
+              console.log(error);
+              setUser(result.user); // fallback to default
+            });
         }
 
         const userProfile = {
           email,
           name,
-          photo: restFormData.photo || null,
+          photo: photo,
           ...restFormData,
           creationTime: result.user?.metadata?.creationTime,
           lastSignInTime: result.user?.metadata?.lastSignInTime,
@@ -75,7 +151,6 @@ const Register = () => {
         toast.error(`Registration failed: ${error.message}`);
       });
   };
-
   const handelGoogleLogIn = () => {
     googleSignIn()
       .then(result => {
