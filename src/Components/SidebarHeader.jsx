@@ -61,10 +61,7 @@ const SidebarHeader = () => {
               alt="User"
               className="w-8 h-8 rounded-full object-cover border border-green-700"
             />
-            <button
-              onClick={handleLogout}
-              className="text-sm text-red-600 hover:underline"
-            >
+            <button onClick={handleLogout} className="w-full py-2 text-red-600">
               Logout
             </button>
           </div>

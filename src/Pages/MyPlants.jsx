@@ -69,7 +69,7 @@ const MyPlants = () => {
   }
 
   return (
-    <div className="py-[50px] max-w-7xl mx-auto">
+    <div className="py-[100px] max-w-7xl mx-auto">
       <div className="flex items-center justify-center mb-5">
         <img src={logoImg} alt="logo" className="w-10 h-10" />
         <h2 className="text-4xl font-Rancho ml-2">My Plants</h2>
