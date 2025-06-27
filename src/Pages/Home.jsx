@@ -5,6 +5,7 @@ import AllCardsPlants from '../Components/AllCardsPlants';
 import Airtical from '../Components/Airtical';
 import Testimonial from '../Components/Testimonial';
 import Blog from '../Components/Blog';
+import Neawlater from '../Components/Neawlater';
 
 const Home = () => {
   const allPlants = useLoaderData();
@@ -16,6 +17,7 @@ const Home = () => {
       <AllCardsPlants allPlants={allPlants} />
       <Blog />
       <Testimonial />
+      <Neawlater />
     </div>
   );
 };
