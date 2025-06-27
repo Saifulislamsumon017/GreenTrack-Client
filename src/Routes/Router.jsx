@@ -11,6 +11,9 @@ import PlantDetails from '../Components/PlantDetails';
 import ErrorPage from '../Pages/ErrorPage';
 import PrivetRoute from './PrivetRoute';
 import UpdatePlant from '../Pages/UpdatePlant';
+import DashboardLayout from '../Layout/DashboardLayout';
+import AboutUs from '../Pages/AboutUs';
+import ContactUs from '../Pages/ContactUs';
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +28,14 @@ export const router = createBrowserRouter([
         Component: Home,
         hydrateFallbackElement: <Loading />,
         loader: () => fetch('https://green-track-server.vercel.app/plants'),
+      },
+      {
+        path: 'about',
+        Component: AboutUs,
+      },
+      {
+        path: 'contact',
+        Component: ContactUs,
       },
       {
         path: '/plants/:id',
@@ -59,6 +70,35 @@ export const router = createBrowserRouter([
       },
 
       {
+        path: 'Login',
+        Component: Login,
+      },
+      {
+        path: 'Register',
+        Component: Register,
+      },
+    ],
+  },
+
+  {
+    path: 'dashboard',
+    element: (
+      <PrivetRoute>
+        <DashboardLayout />
+      </PrivetRoute>
+    ),
+
+    children: [
+      {
+        path: 'add-plant',
+        // Component: AddPlant,
+        element: (
+          <PrivetRoute>
+            <AddPlant />
+          </PrivetRoute>
+        ),
+      },
+      {
         path: 'my-plants',
         // Component: MyPlants,
         element: (
@@ -66,14 +106,6 @@ export const router = createBrowserRouter([
             <MyPlants />
           </PrivetRoute>
         ),
-      },
-      {
-        path: 'Login',
-        Component: Login,
-      },
-      {
-        path: 'Register',
-        Component: Register,
       },
     ],
   },

@@ -39,8 +39,9 @@ const Header = () => {
   const menuItems = [
     { path: '/', label: 'Home' },
     { path: '/all-plants', label: 'All Plants' },
-    { path: '/add-plant', label: 'Add Plant' },
-    { path: '/my-plants', label: 'My Plants' },
+    { path: '/about', label: 'About Us' },
+    { path: '/contact', label: 'Contact Us' },
+    { path: '/dashboard', label: 'Dashboard' },
   ];
 
   return (

@@ -89,7 +89,7 @@ const AddPlant = () => {
   }
 
   return (
-    <div className="w-11/12 mx-auto pt-[50px] pb-[100px] shadow p-20 rounded-3xl bg-white dark:shadow-green-950 dark:bg-green-950 dark:text-white transition">
+    <div className="pt-[100px] pb-[100px] shadow p-20 rounded-3xl bg-white dark:shadow-green-950 dark:bg-green-950 dark:text-white transition ">
       <div className="flex items-center justify-center">
         <img src={logoImg} alt="logo" className="w-10 h-10" />
         <h2 className="text-4xl font-Rancho ml-3">Add A New Plant</h2>
